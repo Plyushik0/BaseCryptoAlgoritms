@@ -1,0 +1,7 @@
+{
+    "user_id": "alx",
+    "secret_w_int_hex": "31",
+    "total_n": 1,
+    "current_attempt": 2,
+    "hash_func": "sha256"
+}

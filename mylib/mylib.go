@@ -151,6 +151,20 @@ func ShtrassPrimaltivityTest(n *big.Int) bool {
 	return r.Cmp(sMod) != 0
 
 }
+func RandInt(max *big.Int) (*big.Int, error) {
+	two := big.NewInt(2)
+	if max.Cmp(two) <= 0 {
+		return nil, fmt.Errorf("max должно быть больше 2")
+	}
+	// Диапазон: [2, max)
+	n := new(big.Int).Sub(max, two)
+	r, err := rand.Int(rand.Reader, n)
+	if err != nil {
+		return nil, err
+	}
+	r.Add(r, two)
+	return r, nil
+}
 
 func MillerRabinPrimalityTest(n *big.Int, t int) bool {
 	if n.Cmp(big.NewInt(5)) < 0 || n.Bit(0) == 0 {

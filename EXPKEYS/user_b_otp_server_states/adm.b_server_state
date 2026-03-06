@@ -1,0 +1,7 @@
+{
+    "user_id": "adm",
+    "expected_attempt": 2,
+    "expected_password_hex": "6b6579",
+    "hash_func": "sha256",
+    "total_n": 1
+}

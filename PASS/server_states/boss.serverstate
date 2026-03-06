@@ -1,0 +1,6 @@
+{
+    "user_id": "boss",
+    "expected_attempt": 4,
+    "expected_password_hex": "3132333435",
+    "hash_func": "sha256"
+}

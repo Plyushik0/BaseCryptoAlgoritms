@@ -1,0 +1,7 @@
+{
+    "user_id": "adm",
+    "secret_w_int_hex": "6b6579",
+    "total_n": 1,
+    "current_attempt": 2,
+    "hash_func": "sha256"
+}

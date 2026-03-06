@@ -1,0 +1,7 @@
+{
+    "user_id": "new",
+    "secret_w_hex": "31",
+    "total_n": 1,
+    "current_attempt": 2,
+    "hash_func": "sha256"
+}

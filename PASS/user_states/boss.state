@@ -1,0 +1,7 @@
+{
+    "user_id": "boss",
+    "secret_w_hex": "3132333435",
+    "total_n": 3,
+    "current_attempt": 4,
+    "hash_func": "sha256"
+}
