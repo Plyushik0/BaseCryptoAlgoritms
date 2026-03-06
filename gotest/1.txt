@@ -1,0 +1,17 @@
+пользователь нажал Enter
+        |
+Fprintln(conn, text)        — клиент отправляет "5\n" по TCP
+        |
+ReadString('\n')            — сервер получает "5\n"
+        |
+TrimSpace + Atoi            — превращает "5\n" в число 5
+        |
+валидация, ход на доску
+        |
+Fprintln(conn1, board)      — сервер отправляет доску обоим
+Fprintln(conn2, board)
+        |
+scanner.Scan()              — оба клиента получают и печатают
+
+
+

@@ -5,28 +5,28 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/big"
-	"os"
 	"net"
-	"strconv"
+	"os"
 	"sample-app/hashf"
+	"strconv"
 )
 
 type UserAState struct {
-	UserID       string   `json:"user_id"`
-	SecretWInt   *big.Int `json:"-"` 
-	SecretWIntHex string   `json:"secret_w_int_hex"`
-	TotalN       int      `json:"total_n"`
-	CurrentAttempt int    `json:"current_attempt"`
-	HashFunc     string   `json:"hash_func"`
+	UserID         string   `json:"user_id"`
+	SecretWInt     *big.Int `json:"-"`
+	SecretWIntHex  string   `json:"secret_w_int_hex"`
+	TotalN         int      `json:"total_n"`
+	CurrentAttempt int      `json:"current_attempt"`
+	HashFunc       string   `json:"hash_func"`
 }
 
 type UserBState struct {
-	UserID            string   `json:"user_id"`
-	ExpectedAttempt   int      `json:"expected_attempt"`
-	ExpectedPasswordInt *big.Int `json:"-"` 
+	UserID              string   `json:"user_id"`
+	ExpectedAttempt     int      `json:"expected_attempt"`
+	ExpectedPasswordInt *big.Int `json:"-"`
 	ExpectedPasswordHex string   `json:"expected_password_hex"`
-	HashFunc          string   `json:"hash_func"`
-	TotalN            int      `json:"total_n"`
+	HashFunc            string   `json:"hash_func"`
+	TotalN              int      `json:"total_n"`
 }
 
 func loadUserAState(userID, stateDir string) (*UserAState, error) {
@@ -122,11 +122,11 @@ func registerA(userID, secretWStr string, totalN int, hashFunc, stateDir, server
 	w0Hex := hex.EncodeToString(w0Int.Bytes())
 
 	request := map[string]interface{}{
-		"command":    "REGISTER",
-		"user_id":    userID,
-		"total_n":    fmt.Sprintf("%d", totalN),
-		"w0_hex":     w0Hex,
-		"hash_func":  hashFunc,
+		"command":   "REGISTER",
+		"user_id":   userID,
+		"total_n":   fmt.Sprintf("%d", totalN),
+		"w0_hex":    w0Hex,
+		"hash_func": hashFunc,
 	}
 	response, err := sendOTPRequest(request, serverHost, serverPort)
 	if err != nil {
@@ -142,11 +142,11 @@ func registerA(userID, secretWStr string, totalN int, hashFunc, stateDir, server
 	}
 	if responseMap["status"] == "REGISTER_SUCCESS" {
 		userState := &UserAState{
-			UserID:       userID,
-			SecretWInt:   initialWInt,
-			TotalN:       totalN,
+			UserID:         userID,
+			SecretWInt:     initialWInt,
+			TotalN:         totalN,
 			CurrentAttempt: 1,
-			HashFunc:     hashFunc,
+			HashFunc:       hashFunc,
 		}
 		if err := saveUserAState(userState, stateDir); err != nil {
 			fmt.Printf("Пользователь A: Ошибка сохранения состояния: %v\n", err)
@@ -241,11 +241,11 @@ func handleOTPRegisterB(data map[string]interface{}, stateDir string) map[string
 	}
 
 	serverState := &UserBState{
-		UserID:            userID,
-		ExpectedAttempt:   1,
+		UserID:              userID,
+		ExpectedAttempt:     1,
 		ExpectedPasswordInt: w0Int,
-		HashFunc:          hashFunc,
-		TotalN:            totalN,
+		HashFunc:            hashFunc,
+		TotalN:              totalN,
 	}
 	if err := saveUserBState(serverState, stateDir); err != nil {
 		return map[string]interface{}{"status": "REGISTER_FAILURE", "message": fmt.Sprintf("Ошибка сохранения состояния: %v", err)}

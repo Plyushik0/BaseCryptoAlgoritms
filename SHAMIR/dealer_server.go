@@ -184,7 +184,7 @@ func main() {
 	if tStr != "" {
 		t64, err := strconv.ParseInt(tStr, 10, 64)
 		if err != nil {
-			fmt.Printf("Неверное значение t. Используется значение по умолчанию: %d\n", DEFAULT_T)
+			fmt.Printf("Неверное значение t. Используется значение по упмолчанию: %d\n", DEFAULT_T)
 			t = DEFAULT_T
 		} else {
 			t = t64

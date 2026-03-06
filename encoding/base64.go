@@ -1,7 +1,5 @@
 package main
 
-
-
 const base64Table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
 func encodeBase64(input []byte) string {

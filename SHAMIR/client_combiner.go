@@ -30,7 +30,7 @@ func reconstructSecret(shares []map[string]*big.Int, prime *big.Int) (*big.Int, 
 			numerator.Mul(numerator, xJ).Mod(numerator, prime)
 			// diff = x_j - x_i mod prime
 			diff := new(big.Int).Sub(xJ, xI) // diff = x_j - x_i
-			diff.Mod(diff, prime)            // Приводим к [0, prime)
+			diff.Mod(diff, prime)            
 			if diff.Cmp(big.NewInt(0)) == 0 {
 				return nil, fmt.Errorf("дублирующиеся x-координаты в долях")
 			}

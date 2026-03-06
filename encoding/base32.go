@@ -14,8 +14,8 @@ func encodeBase32(input []byte) string {
 			padding = 5 - len(input[i:])
 		}
 
-		result += string(base32Table[chunk[0]>>3]) // Берём 5 старших бит первого байта
-		result += string(base32Table[((chunk[0]&0x07)<<2)|(chunk[1]>>6)]) // 3 младших бита первого байта 
+		result += string(base32Table[chunk[0]>>3])                        // Берём 5 старших бит первого байта
+		result += string(base32Table[((chunk[0]&0x07)<<2)|(chunk[1]>>6)]) // 3 младших бита первого байта
 		// + 2 старших бита второго
 		if padding < 4 {
 			result += string(base32Table[(chunk[1]>>1)&0x1F]) // 5 бит из второго байта
@@ -23,20 +23,20 @@ func encodeBase32(input []byte) string {
 			result += "="
 		}
 		if padding < 3 {
-			result += string(base32Table[((chunk[1]&0x01)<<4)|(chunk[2]>>4)]) // 1 младший бит второго байта 
+			result += string(base32Table[((chunk[1]&0x01)<<4)|(chunk[2]>>4)]) // 1 младший бит второго байта
 			// + 4 старших бита третьего
 		} else {
 			result += "="
 		}
 		if padding < 2 {
-			result += string(base32Table[((chunk[2]&0x0F)<<1)|(chunk[3]>>7)]) // 4 младших бита третьего байта 
+			result += string(base32Table[((chunk[2]&0x0F)<<1)|(chunk[3]>>7)]) // 4 младших бита третьего байта
 			// + 1 старший бит четвёртого
 		} else {
 			result += "="
 		}
 		if padding < 1 {
-			result += string(base32Table[(chunk[3]>>2)&0x1F]) // 5 бит из четвёртого байта
-			result += string(base32Table[((chunk[3]&0x03)<<3)|(chunk[4]>>5)]) // 2 младших бита четвёртого байта 
+			result += string(base32Table[(chunk[3]>>2)&0x1F])                 // 5 бит из четвёртого байта
+			result += string(base32Table[((chunk[3]&0x03)<<3)|(chunk[4]>>5)]) // 2 младших бита четвёртого байта
 			// + 3 старших бита пятого
 			result += string(base32Table[chunk[4]&0x1F]) // 5 младших бит пятого байта
 		} else {
@@ -56,7 +56,6 @@ func decodeBase32(input string) []byte {
 		revTable[base32Table[i]] = i
 	}
 
-
 	for i := 0; i < len(input); i += 8 {
 		for j := 0; j < 8; j++ {
 			if i+j < len(input) && input[i+j] != '=' {
@@ -65,7 +64,6 @@ func decodeBase32(input string) []byte {
 				temp[j] = 0
 			}
 		}
-
 
 		result = append(result, (temp[0]<<3)|(temp[1]>>2)) // 5 бит из первого символа + 3 старших бита второго
 		if i+2 < len(input) && input[i+2] != '=' {

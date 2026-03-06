@@ -1,4 +1,5 @@
 package mylib
+
 import (
 	"crypto/rand"
 	"fmt"
@@ -33,18 +34,18 @@ func FastPow(base *big.Int, degree *big.Int) *big.Int {
 }
 
 func FastPowMod(a *big.Int, b *big.Int, m *big.Int) *big.Int {
-	result := big.NewInt(1) 
-	a = new(big.Int).Set(a) 
-    b = new(big.Int).Set(b) 
-	
+	result := big.NewInt(1)
+	a = new(big.Int).Set(a)
+	b = new(big.Int).Set(b)
+
 	for b.Cmp(big.NewInt(0)) > 0 {
-		
+
 		if new(big.Int).And(b, big.NewInt(1)).Cmp(big.NewInt(1)) == 0 {
 			result.Mul(result, a).Mod(result, m)
 		}
-		
+
 		a.Mul(a, a).Mod(a, m)
-		
+
 		b.Rsh(b, 1)
 	}
 
@@ -172,7 +173,6 @@ func MillerRabinPrimalityTest(n *big.Int, t int) bool {
 	}
 
 	nMinusOne := new(big.Int).Sub(n, big.NewInt(1))
-	//nMinusTwo := new(big.Int).Sub(n, big.NewInt(2))
 	nMinusFour := new(big.Int).Sub(n, big.NewInt(4))
 
 	r := new(big.Int).Set(nMinusOne)
@@ -225,7 +225,7 @@ func GeneratePrimeBitK(k int, t int) *big.Int {
 			p.SetBit(p, i, uint(bit.Int64()))
 
 		}
-		
+
 		if MillerRabinPrimalityTest(p, t) {
 			return p
 
@@ -248,8 +248,6 @@ func SloveFirstDegreeComparsion(a, b, m *big.Int) *big.Int {
 
 	x0 := new(big.Int).Mul(b, x)
 	x0.Mod(x0, m)
-
-	
 
 	return x0
 }
@@ -349,6 +347,7 @@ func ChianeseRemainder(b, m []*big.Int) *big.Int {
 	return x
 
 }
+
 // func NewPolynomial(coeffs []int64, mod int64) ([]*big.Int, *big.Int) {
 // 	bigCoeffs := make([]*big.Int, len(coeffs))
 // 	modul := big.NewInt(mod)
@@ -424,5 +423,3 @@ func PrintPolynomial(p []*big.Int) {
 	}
 	fmt.Println()
 }
-
-
